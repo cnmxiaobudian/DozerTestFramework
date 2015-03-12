@@ -4,6 +4,7 @@
 	
 	<!-- basic config -->
 	<artifactId>core</artifactId>
+	<packaging>jar</packaging>
 	<version>1.0.0</version>
 	<name>core</name>
 	
@@ -103,4 +104,26 @@
 		</dependency>
 		<!-- apache lang end -->
 	</dependencies>
+	
+	<build>
+		<finalName>core</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.1</version>
+				<configuration>
+					<attach>true</attach>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>compile</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+	        </plugin>
+        </plugins>
+	</build>
 </project>

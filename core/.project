@@ -10,5 +10,6 @@
   </buildSpec>
   <natures>
     <nature>org.eclipse.jdt.core.javanature</nature>
+    <nature>com.genuitec.eclipse.j2eedt.core.webnature</nature>
   </natures>
 </projectDescription>
