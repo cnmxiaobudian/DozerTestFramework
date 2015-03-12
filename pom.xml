@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	
 	<!-- The Basics config -->
-	<groupId>com.taobao.dozer.test</groupId>
+	<groupId>com.illidan.dozer.test</groupId>
 	<artifactId>dozer-test-framework</artifactId>
 	<packaging>pom</packaging>
 	<version>1.0.0</version>
