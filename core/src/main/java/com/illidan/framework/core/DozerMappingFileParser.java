@@ -8,8 +8,6 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import junit.framework.Assert;
-
 import org.dozer.CustomConverter;
 import org.dozer.DozerBeanMapper;
 import org.w3c.dom.Document;
@@ -39,7 +37,6 @@ public class DozerMappingFileParser
 				break;
 			}
 		}
-		Assert.assertTrue(null != mappingFile && !mappingFile.isEmpty());
 		
 		Document doc = docBuilder.parse(this.getClass().getClassLoader()
 				.getResourceAsStream(mappingFile));

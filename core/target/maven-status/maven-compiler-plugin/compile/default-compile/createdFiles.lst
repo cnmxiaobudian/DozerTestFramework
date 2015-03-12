@@ -1,0 +1,9 @@
+com\illidan\framework\core\AttributePair.class
+com\illidan\framework\util\ObjectUtil.class
+com\illidan\framework\core\AutomatedDozerTester.class
+com\illidan\framework\core\AutomatedDozerTesterMain.class
+com\illidan\framework\core\CustomConverterMapping.class
+com\illidan\framework\core\DozerMappingFileParser.class
+com\illidan\framework\core\AutomatedDozerTestReport.class
+com\illidan\framework\core\CustomClassMapping.class
+com\illidan\framework\core\ParserXML.class
