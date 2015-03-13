@@ -47,34 +47,6 @@ public class ObjectUtil
 		T instance = inputClass.getConstructor().newInstance();
 		Field[] declaredFields = inputClass.getDeclaredFields();
 		
-		//赋予特定值
-		if(null != fixedProperties && !fixedProperties.isEmpty())
-		{
-			for(Field field : declaredFields)
-			{
-				//设置可修改
-				field.setAccessible(true);
-				Object value = fixedProperties.get(field.getName());
-				if(null != value)
-				{
-					field.set(instance, value);
-					
-					//删除declaredFields指定元素值
-					for (int i = 0; i < declaredFields.length; i++) 
-					{
-						if(declaredFields[i].equals(field))
-						{
-							for(int j = i; j < declaredFields.length-1; j++)
-							{
-								declaredFields[j] = declaredFields[j+1];
-							}
-						}
-					}
-					fixedProperties.remove(field.getName());
-				}
-			}
-		}
-		
 		for (Field field : declaredFields)
 		{
 			//排除序列化参数
@@ -165,6 +137,21 @@ public class ObjectUtil
 				field.set(instance, attributeValue);
 			}
 		}
+		
+        //赋予特定值
+        if(null != fixedProperties && !fixedProperties.isEmpty())
+        {
+            for(Field field : declaredFields)
+            {
+                //设置可修改
+                field.setAccessible(true);
+                Object value = fixedProperties.get(field.getName());
+                if(null != value)
+                {
+                    field.set(instance, value);
+                }
+            }
+        }
 
 		return instance;
 	}
