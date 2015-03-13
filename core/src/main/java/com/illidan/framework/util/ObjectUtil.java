@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.TreeMap;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
@@ -41,13 +42,26 @@ public class ObjectUtil
 	 * @return
 	 * @throws Exception
 	 */
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static <T> T getInstanceWithValues(Class<T> inputClass, Map fixedProperties) throws Exception
 	{
 		T instance = inputClass.getConstructor().newInstance();
-		Field[] declaredFields = inputClass.getDeclaredFields();
+		List<Field> declaredFields= Arrays.asList(inputClass.getDeclaredFields());
 		
-		for (Field field : declaredFields)
+		List<Field> allFields = new ArrayList<Field>();
+		allFields.addAll(declaredFields);
+		
+		//赋予父类对象的值
+		Class father = inputClass.getSuperclass();
+		while(null != father && null != father.getDeclaredFields() && father != Object.class)
+		{
+			List<Field> fatherFields = Arrays.asList(father.getDeclaredFields());
+			allFields.addAll(fatherFields);
+			
+			father = father.getSuperclass();
+		}
+		
+		for (Field field : allFields)
 		{
 			//排除序列化参数
 			if (field.getName().equals("serialVersionUID")
@@ -61,7 +75,7 @@ public class ObjectUtil
 			if(Map.class.isAssignableFrom(field.getType()))
 			{
 				ParameterizedType type = (ParameterizedType) field.getGenericType();
-				Map map = new HashMap();
+				Map map = new TreeMap();
 				for(int i = 0; i < MAX_COLLECTION_SIZE; i++)
 				{
 					Object keyObject = null;
@@ -137,11 +151,11 @@ public class ObjectUtil
 				field.set(instance, attributeValue);
 			}
 		}
-		
+
         //赋予特定值
         if(null != fixedProperties && !fixedProperties.isEmpty())
         {
-            for(Field field : declaredFields)
+            for(Field field : allFields)
             {
                 //设置可修改
                 field.setAccessible(true);
@@ -152,7 +166,7 @@ public class ObjectUtil
                 }
             }
         }
-
+        
 		return instance;
 	}
 	
