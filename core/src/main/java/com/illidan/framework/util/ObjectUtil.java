@@ -11,9 +11,11 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 import java.util.TreeMap;
 
 import javax.xml.datatype.DatatypeConfigurationException;
@@ -119,6 +121,17 @@ public class ObjectUtil
 			{
 				ParameterizedType type = (ParameterizedType) field.getGenericType();
 				Collection coll = new ArrayList();
+				
+				//重新赋值coll
+				if(List.class.isAssignableFrom(field.getType()))
+				{
+					coll = new ArrayList();
+				}
+				if(Set.class.isAssignableFrom(field.getType()))
+				{
+					coll = new HashSet();
+				}
+				
 				for (int i = 0; i < MAX_COLLECTION_SIZE; i++)
 				{
 					Object object = null;
@@ -257,6 +270,17 @@ public class ObjectUtil
 		{
 			ParameterizedType type = (ParameterizedType) field.getGenericType();
 			Collection coll = new ArrayList();
+			
+			//重新赋值coll
+			if(List.class.isAssignableFrom(field.getType()))
+			{
+				coll = new ArrayList();
+			}
+			if(Set.class.isAssignableFrom(field.getType()))
+			{
+				coll = new HashSet();
+			}
+			
 			if(type.getActualTypeArguments()[0] instanceof Class)
 			{
 				Class typeClass = (Class) type.getActualTypeArguments()[0];
